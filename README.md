@@ -1,6 +1,9 @@
 django-saml2-idp
 ================
 
+[![Build Status](https://travis-ci.org/mobify/django-saml2-idp.svg?branch=master)](https://travis-ci.org/mobify/django-saml2-idp)
+
+
 Authenticate users for your Django web app against a SAML 2.0 Identity Provider.
 
 This is a companion project to the Django SAML 2.0 Service Provider app @ http://github.com/novapost/django-saml2-sp/.
