@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
 
+import saml2idp
+
 
 with open('README.rst') as readme:
     description = readme.read()
 
-
 setup(
     name='dj-saml-idp',
-    version='0.19.0',
+    version=saml2idp.__version__,
     author='Sebastian Vetter',
     author_email='sebastian@mobify.com',
     description='SAML 2.0 IdP for Django',
