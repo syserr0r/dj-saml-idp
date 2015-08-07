@@ -19,10 +19,9 @@ setup(
         'M2Crypto>=0.20.1',
         'BeautifulSoup>=3.2.0'],
     license = 'MIT',
-    packages = ['saml2idp', 'saml2idp.tests'],
-    package_dir = {'saml2idp': 'idptest/saml2idp'},
-    package_data = {'saml2idp': ['templates/saml2idp/*.html',
-                                 'templates/saml2idp/*.xml']},
+    packages = ['saml2idp',
+                'saml2idp.tests'],
+    package_dir = {'saml2idp': 'saml2idp'},
     url = 'http://github.com/mobify/dj-saml-idp',
     zip_safe = True,
 )
