@@ -4,3 +4,9 @@
 
 *.egg-info/
 *.tox/
+
+.env
+
+# Python release artifacts
+build/
+dist/
