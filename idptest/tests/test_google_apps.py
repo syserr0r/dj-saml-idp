@@ -1,9 +1,8 @@
 """
 Tests for the Google Apps processor.
 """
-# local imports:
 from . import base
-from .. import codex
+from saml2idp import codex
 
 SAML_REQUEST = codex.deflate_and_base64_encode(
     '<?xml version="1.0" encoding="UTF-8"?>'

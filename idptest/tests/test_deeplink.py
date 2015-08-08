@@ -3,7 +3,7 @@ from __future__ import absolute_import
 """
 Tests for the demo AttributeProcessor and IdP-initiated deep-linking.
 """
-from saml2idp.tests import base
+from . import base
 
 
 class TestDeepLink(base.SamlTestCase):

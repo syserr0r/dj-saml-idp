@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
-
 import saml2idp
 
 
@@ -19,8 +18,7 @@ setup(
         'M2Crypto>=0.20.1',
         'BeautifulSoup>=3.2.0'],
     license='MIT',
-    packages=['saml2idp',
-              'saml2idp.tests'],
+    packages=['saml2idp'],
     url='http://github.com/mobify/dj-saml-idp',
     zip_safe=False,
 )
