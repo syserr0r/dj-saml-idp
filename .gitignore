@@ -16,3 +16,6 @@ dist/
 
 # Virtualenv
 venv/
+
+# Pytest artifacts
+idptest/.pytest_cache
