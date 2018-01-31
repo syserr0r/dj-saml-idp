@@ -17,9 +17,13 @@ def deeplink_url_patterns(
     new_patterns = []
     for resource in resources:
         new_patterns += [
-            url(url_base_pattern % resource, login_init_func, {
+            url(
+                url_base_pattern % resource,
+                login_init_func,
+                {
                     'resource': resource,
-                })
+                }
+            )
         ]
     return new_patterns
 
