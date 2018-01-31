@@ -19,7 +19,7 @@ setup(
     description='SAML 2.0 IdP for Django',
     long_description='\n\n'.join([description, changelog]),
     install_requires=[
-        'Django>=1.4',
+        'Django<2',
         # We have to pin M2Crypto to version 0.22.3 because more recent
         # versions are failing due to issues with finding openssl libs.
         'M2Crypto==0.22.3',
