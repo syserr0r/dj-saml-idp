@@ -2,7 +2,7 @@ test-27:
     build: .
     dockerfile: python-2.7.Dockerfile
     environment:
-        TOXENV: py27-dj19
+        TOXENV: py27-dj111
     volumes:
         - .:/app
     command: tox
