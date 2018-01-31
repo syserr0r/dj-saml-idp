@@ -44,11 +44,11 @@ Configure the URLs
 ------------------
 - Add this line to your top-level urlpatterns (in urls.py usually):
 
-    urlpatterns = patterns('',
+    urlpatterns = [
     ...
         (r'^idp/', include('saml2idp.urls')),
     ...
-    )
+    ]
 
 Set appropriate settings
 ------------------------

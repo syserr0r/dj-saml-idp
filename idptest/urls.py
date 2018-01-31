@@ -1,10 +1,10 @@
-from django.conf.urls import patterns, include
+from django.conf.urls import include
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Example:
     # (r'^idptest/', include('idptest.foo.urls')),
 
@@ -20,4 +20,4 @@ urlpatterns = patterns('',
 
     # URLs for the IDP:
     (r'^idp/', include('saml2idp.urls')),
-)
+]
