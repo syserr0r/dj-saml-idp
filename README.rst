@@ -5,7 +5,7 @@ dj-saml-idp
     :target: https://travis-ci.org/mobify/dj-saml-idp
 
 
-This is a fork `novapost/django-saml2-idp`_ that is distributed indipendantly as `dj-saml-idp`.
+This is a fork `novapost/django-saml2-idp`_ that is distributed independently as `dj-saml-idp`.
 
 `dj-saml-idp` implements the Identity Provider side of the SAML 2.0 protocol
 and makes user authentication available to external applications.
@@ -13,7 +13,7 @@ and makes user authentication available to external applications.
 **Note:** Only supports Django 1.5+.
 
 
-Testing 
+Testing
 -------
 
 The test runner is `pytest` and we are using `tox` to run tests against
@@ -23,7 +23,7 @@ directly (preferably in a virtualenv)::
     $ pip install tox
     $ tox
 
-Or inside a Docker container using using the provided `Dockerfile` and with 
+Or inside a Docker container using using the provided `Dockerfile` and with
 docker-compose (requires `docker` and `docker-compose` to be installed)::
 
     $ docker-compose run test-27
@@ -34,14 +34,14 @@ Release
 
 First of all, create a new version of the package. We use `bumpversion`_ to
 handle updating all version strings, committing the changes and creating a
-new git tag automatically. To bump the packag version use the follwoing
+new git tag automatically. To bump the package version use the following
 command with whichever part of the semantic version you'd like to update::
 
     $ bumpversion (major|minor|patch)
 
 for instance for a *minor* update, use (which should be the most common case)::
 
-    $ bumpersion minor
+    $ bumpversion minor
 
 You need the PyPI credentials for the `mobify` account to be able to release
 a new version and the build script is expecting it defined as an environment
