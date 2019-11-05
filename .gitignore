@@ -13,3 +13,10 @@
 # Python release artifacts
 build/
 dist/
+
+# IDEs
+.idea/
+
+# Local venvs
+venv/
+venv3/

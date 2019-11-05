@@ -1,8 +1,10 @@
-test-27:
+version: "3.7"
+services:
+  test:
     build: .
-    dockerfile: python-2.7.Dockerfile
-    environment:
-        TOXENV: py27-dj19
+    image: dj-saml-idp:latest
     volumes:
-        - .:/app
-    command: tox
+        - .:/app:cached
+    ports:
+      - 4322:4322
+    command: /bin/bash

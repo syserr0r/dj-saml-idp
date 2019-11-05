@@ -19,12 +19,12 @@ setup(
     description='SAML 2.0 IdP for Django',
     long_description='\n\n'.join([description, changelog]),
     install_requires=[
-        'Django>=1.4',
-        # We have to pin M2Crypto to version 0.22.3 because more recent
-        # versions are failing due to issues with finding openssl libs.
-        'M2Crypto==0.22.3',
-        'BeautifulSoup>=3.2.0',
-        'structlog'],
+        'Django>=1.9',
+        'M2Crypto>=0.35.2',
+        'beautifulsoup4>=4.8.1',
+        'structlog==16.1.0',
+        'lxml==4.4.1'
+    ],
     license='MIT',
     packages=['saml2idp'],
     url='http://github.com/mobify/dj-saml-idp',
