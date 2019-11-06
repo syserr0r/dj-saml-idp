@@ -3,7 +3,6 @@
 Signing code goes here.
 """
 from __future__ import absolute_import, print_function, unicode_literals
-import base64
 import hashlib
 import string
 

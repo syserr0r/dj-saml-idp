@@ -38,6 +38,11 @@ class Processor(object):
     """
     Base SAML 2.0 AuthnRequest to Response Processor.
     Sub-classes should provide Service Provider-specific functionality.
+
+    Python3 support: self._request_xml will always be Unicode (see
+    _decode_request) even though the payload may be delivered using
+    different compressions and/or encodings. Subclasses that override
+    _decode_request must maintain this behaviour.
     """
 
     @property

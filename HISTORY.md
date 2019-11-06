@@ -1,12 +1,11 @@
-.. :changelog:
+# Release History
 
+## 1.0.0 (2019-11-06)
 
-Release History
----------------
+* Refactor development and test environment
+* Support Python 3
 
-
-0.22.0 (2016-05-26)
-+++++++++++++++++++
+## 0.22.0 (2016-05-26)
 
 * Allow a `redirect_to` parameter to be passed to the logout view to redirect
   the user to after succesful logout instead of showing the logout page.
@@ -19,9 +18,7 @@ Release History
   backwards compatible and handles old-style processors as previously.
 
 
-0.21.2 (2016-04-18)
-+++++++++++++++++++
-
+## 0.21.2 (2016-04-18)
 
 * Switched from `django.utils.importlib` to Python's standard `importlib` to
   work with Django 1.9.

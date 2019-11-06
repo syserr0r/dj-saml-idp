@@ -3,11 +3,11 @@ from setuptools import setup
 import saml2idp
 
 
-with open('README.rst') as readme:
+with open('README.md') as readme:
     description = readme.read()
 
 
-with open('HISTORY.rst') as history:
+with open('HISTORY.md') as history:
     changelog = history.read()
 
 

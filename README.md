@@ -1,33 +1,44 @@
-dj-saml-idp
-===========
+# dj-saml-idp
 
-.. image:: https://travis-ci.org/mobify/dj-saml-idp.svg?branch=master
-    :target: https://travis-ci.org/mobify/dj-saml-idp
+This started as a fork of `novapost/django-saml2-idp`, distributed
+independently as `dj-saml-idp`.
 
+`dj-saml-idp` implements the Identity Provider (IDP) side of the SAML 2.0
+protocol and makes user authentication available to external applications.
 
-This is a fork `novapost/django-saml2-idp`_ that is distributed indipendantly as `dj-saml-idp`.
+This package only supports Django 1.9+. At this time, it's only been tested
+with Django 1.9.
 
-`dj-saml-idp` implements the Identity Provider side of the SAML 2.0 protocol
-and makes user authentication available to external applications.
+# Development And Testing 
 
-**Note:** Only supports Django 1.5+.
+The package uses a Docker container to support both development and
+tests. The container creates virtual environments for different
+Python versions as below:
 
+* Python 2.7 in `/venv27`
+* Python 3.7 in `/venv37`
 
-Testing 
--------
+These environments may be used for development and interactive testing.
 
-The test runner is `pytest` and we are using `tox` to run tests against
-different versions of Django. The test can be run locally using either `tox`
-directly (preferably in a virtualenv)::
+To build and run the container, to get a bash prompt:
+```bash
+docker build -t dj-saml-idp:latest .
+docker-compose run --service-ports test
+```
 
-    $ pip install tox
-    $ tox
+To support use of IDEs (such as PyCharm) for development, the container
+can also run SSHD; run the command `docker/run_sshd.sh` at a bash prompt
+in the container. In the commands above, the --service-ports option is
+only needed if you intend to run sshd in the container.
 
-Or inside a Docker container using using the provided `Dockerfile` and with 
-docker-compose (requires `docker` and `docker-compose` to be installed)::
+The test runner is `pytest`. For release tests, we use `tox` to run
+the tests against different versions of Python and Django. The tests
+can be run inside the Docker container using `tox`:
 
-    $ docker-compose run test-27
-
+```bash
+$ . /venv37/bin/activate
+$ tox
+```
 
 Release
 -------
