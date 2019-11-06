@@ -1,12 +1,12 @@
-from django.conf.urls import patterns, include
-
+from django.conf.urls import url, include
+from django.contrib.auth.views import login
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 import django.contrib.auth.views
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Example:
     # (r'^idptest/', include('idptest.foo.urls')),
 
@@ -15,11 +15,11 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 
     # Required for login:
-    (r'^accounts/login/$', django.contrib.auth.views.login),
+    url(r'^accounts/login/$', login),
 
     # URLs for the IDP:
-    (r'^idp/', include('saml2idp.urls')),
-)
+    url(r'^idp/', include('saml2idp.urls')),
+]

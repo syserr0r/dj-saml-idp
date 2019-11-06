@@ -69,12 +69,17 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'q+0vb%)c7c%&kl&jcca^6n7$3q4ktle9i28t(fd&qh28%l-%58'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # Put strings here, like "/home/html/django_templates" or
+        # "C:/www/django/templates".
+        # Always use forward slashes, even on Windows.
+        # Don't forget to use absolute paths, not relative paths.
+        'DIRS': [os.path.join(PROJECT_ROOT, 'templates')],
+        'APP_DIRS': True
+    }
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -115,21 +120,24 @@ SAML2IDP_CONFIG = {
 demoSpConfig = {
     'acs_url': 'http://127.0.0.1:9000/sp/acs/',
     'processor': 'saml2idp.demo.Processor',
-    'links': [ # a list of (resource, pattern) tuples, or a {resource: pattern} dict
-        #NOTE: This should still work, due to the "simple" 'login_init' URL in urls.py:
-        #TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/
+    'links': [
+        # a list of (resource, pattern) tuples, or a {resource: pattern} dict
+        # NOTE: This should still work, due to the "simple" 'login_init' URL in
+        # urls.py:
+        # TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/
         ('deeplink', 'http://127.0.0.1:9000/sp/%s/'),
-        # The following are "new" deeplink mappings that let you specify more than one capture group:
+        # The following are "new" deeplink mappings that let you specify more
+        # than one capture group:
         # This is equivalent to the above, using the 'new' deeplink mapping:
-        #TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/
+        # TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/
         (r'deeplink/(?P<target>\w+)', 'http://127.0.0.1:9000/sp/%(target)s/'),
         # Using two capture groups:
-        #TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/
+        # TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/
         (r'deeplink/(?P<target>\w+)/(?P<page>\w+)', 'http://127.0.0.1:9000/%(target)s/%(page)s/'),
         # Deeplink to a resource that requires query parameters:
-        #NOTE: In the pattern, always use %(variable)s, because the captured
+        # NOTE: In the pattern, always use %(variable)s, because the captured
         # parameters will always be in unicode.
-        #TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/123/
+        # TEST BY BROWSING TO: http://127.0.0.1:8000/sp/test/123/
         (r'deeplink/(?P<target>\w+)/(?P<page>\w+)/(?P<param>\d+)',
             'http://127.0.0.1:9000/%(target)s/%(page)s/?param=%(param)s'),
     ],
