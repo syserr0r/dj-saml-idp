@@ -1,6 +1,5 @@
-import base
-import exceptions
-import xml_render
+from __future__ import absolute_import, print_function, unicode_literals
+from . import base, xml_render
 
 class Processor(base.Processor):
     """

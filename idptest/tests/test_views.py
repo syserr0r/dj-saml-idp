@@ -6,7 +6,7 @@ NOTE: These classes do not test anything SAML-related.
 Testing actual SAML functionality requires implementation-specific details,
 which should be put in another test module.
 """
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
 import os
 import mock
 import pytest
@@ -15,6 +15,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils import six
 
 from saml2idp import views
 from saml2idp import exceptions
@@ -134,7 +135,13 @@ class TestLogoutView(TestCase):
 
 def test_rendering_metadata_view(client):
     page = client.get(reverse('metadata_xml'))
-    assert load_certificate(smd.SAML2IDP_CONFIG) in page.content
+    if not isinstance(page.content, six.text_type):
+        # page.content is bytes, so convert to Unicode
+        content = page.content.decode('utf8')
+    else:
+        content = page.content
+
+    assert load_certificate(smd.SAML2IDP_CONFIG) in content
 
 
 def test_creating_template_names_without_processor():

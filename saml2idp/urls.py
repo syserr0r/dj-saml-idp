@@ -1,6 +1,7 @@
+from __future__ import absolute_import, print_function, unicode_literals
 from django.conf.urls import patterns, url
-from views import descriptor, login_begin, login_init, login_process, logout
-from metadata import get_deeplink_resources
+from .views import descriptor, login_begin, login_init, login_process, logout
+from .metadata import get_deeplink_resources
 
 def deeplink_url_patterns(
     prefix='',

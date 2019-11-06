@@ -10,7 +10,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 import os
-PROJECT_ROOT = os.getcwd()
+
+# In this package, PROJECT_ROOT is the idptest directory itself.
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DATABASES = {
     'default': {

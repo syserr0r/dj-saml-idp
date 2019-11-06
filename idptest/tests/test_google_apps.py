@@ -1,6 +1,7 @@
 """
 Tests for the Google Apps processor.
 """
+from __future__ import absolute_import, print_function, unicode_literals
 from . import base
 from saml2idp import codex
 

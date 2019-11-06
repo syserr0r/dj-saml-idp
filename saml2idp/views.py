@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
+
 import os
 
 from django.contrib import auth
@@ -13,11 +14,13 @@ from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 
-from . import saml2idp_metadata
-from . import exceptions
-from . import metadata
-from . import registry
-from . import xml_signing
+from . import (
+    saml2idp_metadata,
+    exceptions,
+    metadata,
+    registry,
+    xml_signing
+)
 from .logging import get_saml_logger
 
 logger = get_saml_logger()

@@ -13,7 +13,7 @@ RUN apt-get install -y --no-install-recommends \
         build-essential \
         libssl-dev \
         python python-dev swig python-pip \
-        python3.7 python3.7-dev python3-venv python3.7-venv \
+        python3.7 python3.7-dev python3-venv python3-dev python3.7-venv \
         && \
     apt-get -q -y upgrade && \
     apt-get clean

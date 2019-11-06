@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, unicode_literals
 class CaseInsensitiveDict:
     def __init__(self, dictionary=None):
         self._data = self.__create(dictionary or {})

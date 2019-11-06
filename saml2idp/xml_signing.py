@@ -2,10 +2,13 @@
 """
 Signing code goes here.
 """
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
+import base64
 import hashlib
 import string
+
 import M2Crypto
+from django.utils import six
 
 from . import saml2idp_metadata as smd
 from .codex import nice64
@@ -23,7 +26,11 @@ def load_certificate(config):
     logger.info('Using certificate file: ' + certificate_filename)
 
     certificate = M2Crypto.X509.load_cert(certificate_filename)
-    return ''.join(certificate.as_pem().split('\n')[1:-2])
+
+    # as_pem returns base64 text as bytes, so we can safely decode it
+    # as ascii.
+    pem = certificate.as_pem().decode('ascii')
+    return ''.join(pem.split('\n')[1:-2])
 
 
 def load_private_key(config):
@@ -42,8 +49,16 @@ def load_private_key(config):
 
 
 def sign_with_rsa(private_key, data):
+    """
+    Sign the given sequence of bytes with the private key.
+    If 'data' is unicode, it's encoded as utf8 before signing.
+    """
     private_key.sign_init()
-    private_key.sign_update(data)
+    if isinstance(data, six.text_type):
+        private_key.sign_update(data.encode('utf8'))
+    else:
+        private_key.sign_update(data)
+
     return nice64(private_key.sign_final())
 
 
@@ -59,9 +74,14 @@ def get_signature_xml(subject, reference_uri):
 
     logger.debug('Subject: ' + subject)
 
-    # Hash the subject.
+    # Hash the subject; we expect that to be a Unicode
+    # string, but we'll handle either bytes or Unicode.
     subject_hash = hashlib.sha1()
-    subject_hash.update(subject)
+    if isinstance(subject, six.text_type):
+        subject_hash.update(subject.encode('utf8'))
+    else:
+        subject_hash.update(subject)
+
     subject_digest = nice64(subject_hash.digest())
     logger.debug('Subject digest: ' + subject_digest)
 
