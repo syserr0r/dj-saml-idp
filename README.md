@@ -7,7 +7,7 @@ independently as `dj-saml-idp`.
 protocol and makes user authentication available to external applications.
 
 This package only supports Django 1.9+. At this time, it's only been tested
-with Django 1.9.
+with Django 1.9 & 1.11
 
 # Development And Testing 
 
