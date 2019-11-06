@@ -3,6 +3,8 @@
 This started as a fork of `novapost/django-saml2-idp`, distributed
 independently as `dj-saml-idp`.
 
+The original project is at https://github.com/guitarmanvt/django-saml2-idp
+
 `dj-saml-idp` implements the Identity Provider (IDP) side of the SAML 2.0
 protocol and makes user authentication available to external applications.
 

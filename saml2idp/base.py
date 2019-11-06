@@ -7,7 +7,6 @@ import zlib
 
 from bs4 import BeautifulSoup
 from django.core.exceptions import ImproperlyConfigured
-from django.utils import six
 
 from . import codex
 from . import exceptions
