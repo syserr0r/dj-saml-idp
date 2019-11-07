@@ -42,25 +42,24 @@ $ . /venv37/bin/activate
 $ tox
 ```
 
-Release
--------
+# Release
 
 First of all, create a new version of the package. We use `bumpversion`_ to
 handle updating all version strings, committing the changes and creating a
 new git tag automatically. To bump the packag version use the follwoing
 command with whichever part of the semantic version you'd like to update::
 
-    $ bumpversion (major|minor|patch)
+`$ bumpversion (major|minor|patch)`
 
 for instance for a *minor* update, use (which should be the most common case)::
 
-    $ bumpersion minor
+`$ bumpersion minor`
 
 You need the PyPI credentials for the `mobify` account to be able to release
 a new version and the build script is expecting it defined as an environment
 variable::
 
-    $ export PYPI_PASSWORD=supersecretpassword
+`$ export PYPI_PASSWORD=supersecretpassword`
 
 Releasing a new version to PyPI is very simple. The first thing you need to do
 is make sure that all the test are passing and that the version in
@@ -68,17 +67,14 @@ is make sure that all the test are passing and that the version in
 
 With that done, all you need to do is run the following commands::
 
-    $ make release
+`$ make release`
 
 This will cleanup the `build/` and `dist/` directories, build a source package
 and a Python wheel. Both will then be uploaded to PyPI.
 
+# License
 
-License
--------
-
-Distributed under the `MIT License`_.
-
+Distributed under the `MIT License`.
 
 .. _`novapost/django-saml2-idp`: https://github.com/novapost/django-saml2-idp
 .. _`MIT License`: https://github.com/mobify/dj-saml-idp/blob/master/LICENSE
