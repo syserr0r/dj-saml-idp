@@ -46,18 +46,18 @@ $ tox
 
 First of all, create a new version of the package. We use `bumpversion`_ to
 handle updating all version strings, committing the changes and creating a
-new git tag automatically. To bump the packag version use the follwoing
+new git tag automatically. To bump the package version use the following
 command with whichever part of the semantic version you'd like to update::
 
 `$ bumpversion (major|minor|patch)`
 
 for instance for a *minor* update, use (which should be the most common case)::
 
-`$ bumpersion minor`
+`$ bumpversion minor`
 
 You need the PyPI credentials for the `mobify` account to be able to release
 a new version and the build script is expecting it defined as an environment
-variable::
+variable:
 
 `$ export PYPI_PASSWORD=supersecretpassword`
 
