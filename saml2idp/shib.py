@@ -1,7 +1,8 @@
-import base
-import xml_render
-import zlib
+from __future__ import absolute_import, print_function, unicode_literals
 import base64
+import zlib
+
+from . import (base, xml_render)
 
 
 class Processor(base.Processor):

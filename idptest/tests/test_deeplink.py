@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
 """
 Tests for the demo AttributeProcessor and IdP-initiated deep-linking.
 """
@@ -36,10 +36,10 @@ class TestDeepLinkWithAttributes(TestDeepLink):
 
     def test_deeplink(self):
         super(TestDeepLinkWithAttributes, self).test_deeplink()
-        attributes = self._saml_soup.findAll('saml:attribute')
+        attributes = self._saml_soup.find_all('saml:Attribute')
 
         # Assert.
         self.assertEqual(len(attributes), 1)
-        self.assertEqual(attributes[0]['name'], 'foo')
-        value = attributes[0].findAll('saml:attributevalue')[0]
+        self.assertEqual(attributes[0]['Name'], 'foo')
+        value = attributes[0].findAll('saml:AttributeValue')[0]
         self.assertEqual(value.text, 'bar')

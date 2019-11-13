@@ -6,7 +6,7 @@ NOTE: These classes do not test anything SAML-related.
 Testing actual SAML functionality requires implementation-specific details,
 which should be put in another test module.
 """
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
 import os
 import mock
 import pytest
@@ -15,6 +15,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils import six
 
 from saml2idp import views
 from saml2idp import exceptions
@@ -34,20 +35,20 @@ class TestLoginView(TestCase):
         """
         GET request without SAMLResponse data should have failed.
         """
-        self.assertEquals(self.client.get('/idp/login/').status_code, 400)
+        self.assertEqual(self.client.get('/idp/login/').status_code, 400)
 
     def test_empty_post(self):
         """
         POST request without SAMLResponse data should have failed.
         """
-        self.assertEquals(self.client.post('/idp/login/').status_code, 400)
+        self.assertEqual(self.client.post('/idp/login/').status_code, 400)
 
     def _test_pre_redirect(self):
         self.assertFalse('SAMLRequest' in self.client.session)
         self.assertFalse('RelayState' in self.client.session)
 
     def _test_redirect(self, response):
-        self.assertEquals(response.status_code, HttpResponseRedirect.status_code)
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
         self.assertTrue(response['location'].endswith('/idp/login/process/'))
         self.assertEqual(self.client.session['SAMLRequest'], SAML_REQUEST)
         self.assertEqual(self.client.session['RelayState'], RELAY_STATE)
@@ -134,7 +135,13 @@ class TestLogoutView(TestCase):
 
 def test_rendering_metadata_view(client):
     page = client.get(reverse('metadata_xml'))
-    assert load_certificate(smd.SAML2IDP_CONFIG) in page.content
+    if not isinstance(page.content, six.text_type):
+        # page.content is bytes, so convert to Unicode
+        content = page.content.decode('utf8')
+    else:
+        content = page.content
+
+    assert load_certificate(smd.SAML2IDP_CONFIG) in content
 
 
 def test_creating_template_names_without_processor():

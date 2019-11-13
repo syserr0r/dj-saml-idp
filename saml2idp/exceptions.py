@@ -1,3 +1,5 @@
+from __future__ import absolute_import, print_function, unicode_literals
+
 class CannotHandleAssertion(Exception):
     """
     This processor does not handle this assertion.

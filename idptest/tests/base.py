@@ -2,8 +2,8 @@
 """
 Tests for the Base Processor class.
 """
-from __future__ import absolute_import
-from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
+from __future__ import absolute_import, print_function, unicode_literals
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -30,12 +30,14 @@ class SamlTestCase(TestCase):
     def tearDown(self):
         del saml2idp_metadata.SAML2IDP_REMOTES['foobar']
 
-    def _hit_saml_view(self, url, data={}):
+    def _hit_saml_view(self, url, data=None):
         """
         Logs in the test user, then hits a view.
         Sets the self._html, self._html_soup, self._saml and self._saml_soup
         properties, which can be used in assert statements.
         """
+        data = data or {}
+
         # Reset them all to a known BAD_VALUE, so we don't have to guess.
         self._html = self.BAD_VALUE
         self._html_soup = self.BAD_VALUE
@@ -46,11 +48,11 @@ class SamlTestCase(TestCase):
 
         response = self.client.get(url, data=data, follow=True)
         html = response.content
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, 'html.parser')
         inputtag = soup.findAll('input', {'name':'SAMLResponse'})[0]
         encoded_response = inputtag['value']
-        saml = codex.base64.b64decode(encoded_response)
-        saml_soup = BeautifulStoneSoup(saml)
+        saml = codex.base64.b64decode(encoded_response).decode('utf8')
+        saml_soup = BeautifulSoup(saml, 'xml')
 
         self._html = html
         self._html_soup = soup

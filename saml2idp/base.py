@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
 import base64
 import time
 import uuid
+import zlib
 
-from BeautifulSoup import BeautifulStoneSoup
+from bs4 import BeautifulSoup
 from django.core.exceptions import ImproperlyConfigured
 
 from . import codex
@@ -12,6 +13,7 @@ from . import exceptions
 from . import saml2idp_metadata
 from . import xml_render
 from .logging import get_saml_logger
+from .utils import CaseInsensitiveDict
 
 MINUTES = 60
 HOURS = 60 * MINUTES
@@ -35,6 +37,11 @@ class Processor(object):
     """
     Base SAML 2.0 AuthnRequest to Response Processor.
     Sub-classes should provide Service Provider-specific functionality.
+
+    Python3 support: self._request_xml will always be Unicode (see
+    _decode_request) even though the payload may be delivered using
+    different compressions and/or encodings. Subclasses that override
+    _decode_request must maintain this behaviour.
     """
 
     @property
@@ -107,9 +114,25 @@ class Processor(object):
 
     def _decode_request(self):
         """
-        Decodes _request_xml from _saml_request.
+        Decodes _request_xml from _saml_request. On successful return,
+        self._request_xml will be a Unicode XML string.
         """
-        self._request_xml = base64.b64decode(self._saml_request)
+        # Under Python3, b64decode returns bytes.
+        xml_bytes = base64.b64decode(self._saml_request)
+
+        # In some cases, the base64-decoded value has been deflated
+        # using zlib. It's not simple to tell whether it's encoded or
+        # not, so we try to inflate it here, and if there are any errors
+        # in that process, we assume it's not deflated.
+
+        try:
+            xml_bytes = zlib.decompress( xml_bytes , -15)
+        except zlib.error:
+            pass
+
+        # At this point, we assume that xml_bytes is a UTF-8
+        # representation of the XML. We want to return Unicode
+        self._request_xml = xml_bytes.decode('utf8')
 
         self._logger.debug('SAML request decoded',
                            decoded_request=self._request_xml)
@@ -192,14 +215,18 @@ class Processor(object):
         if not self._request_xml.strip().startswith('<'):
             raise Exception('RequestXML is not valid XML; '
                             'it may need to be decoded or decompressed.')
-        soup = BeautifulStoneSoup(self._request_xml)
+        soup = BeautifulSoup(self._request_xml, 'xml')
         request = soup.findAll()[0]
-        params = {}
-        params['ACS_URL'] = request['assertionconsumerserviceurl']
-        params['REQUEST_ID'] = request['id']
-        params['DESTINATION'] = request.get('destination', '')
-        params['PROVIDER_NAME'] = request.get('providername', '')
-        self._request_params = params
+
+        # BeautifulSoup 4 uses case-dependent matching where v3 forced
+        # all names to lowercase, so we emulate that behaviour.
+        attrs = CaseInsensitiveDict(request.attrs)
+        self._request_params = dict(
+            ACS_URL = attrs['assertionconsumerserviceurl'],
+            REQUEST_ID = attrs['id'],
+            DESTINATION = attrs.get('destination', ''),
+            PROVIDER_NAME = attrs.get('providername', '')
+        )
 
     def _reset(self, django_request, sp_config=None):
         """
