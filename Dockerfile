@@ -31,7 +31,9 @@ ADD . /app
 WORKDIR /app
 
 RUN virtualenv /venv27 && \
-    /venv27/bin/pip install --cache-dir ~/.pip27 wheel -r requirements-dev.txt
+    /venv27/bin/pip install --cache-dir ~/.pip27 wheel && \
+    /venv27/bin/pip install --cache-dir ~/.pip27 -r requirements-dev.txt
 
 RUN python3.7 -m venv /venv37 && \
-    /venv37/bin/pip3 install --cache-dir ~/.pip37 wheel -r requirements-dev.txt
+    /venv37/bin/pip3 install --cache-dir ~/.pip37 wheel && \
+    /venv37/bin/pip3 install --cache-dir ~/.pip37 -r requirements-dev.txt
