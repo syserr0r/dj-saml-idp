@@ -7,7 +7,11 @@ from django.contrib import auth
 from django.core.validators import URLValidator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured, ValidationError
-from django.core.urlresolvers import reverse
+from django import VERSION
+if VERSION[:2] >= (1, 10):
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
