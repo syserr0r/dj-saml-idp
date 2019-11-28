@@ -13,7 +13,11 @@ import pytest
 
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django import VERSION
+if VERSION[:2] >= (1, 10):
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import six
 
