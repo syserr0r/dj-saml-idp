@@ -11,6 +11,8 @@ MANAGERS = ADMINS
 
 import os
 
+from django import VERSION
+
 # In this package, PROJECT_ROOT is the idptest directory itself.
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -81,12 +83,15 @@ TEMPLATES = [
     }
 ]
 
-MIDDLEWARE_CLASSES = (
+# Django2+ uses MIDDLEWARE rather than MIDDLEWARE_CLASSES, but it's
+# safe to define both.
+MIDDLEWARE = MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
+
 
 ROOT_URLCONF = 'idptest.urls'
 

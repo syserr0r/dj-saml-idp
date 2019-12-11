@@ -13,7 +13,10 @@ import pytest
 
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import six
 
