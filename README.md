@@ -67,7 +67,10 @@ is make sure that all the test are passing and that the version in
 
 With that done, all you need to do is run the following commands::
 
-`$ make release`
+```
+$ rm -rf build/ dist/ dj_saml_idp.egg-info
+$ make release
+```
 
 This will cleanup the `build/` and `dist/` directories, build a source package
 and a Python wheel. Both will then be uploaded to PyPI.
