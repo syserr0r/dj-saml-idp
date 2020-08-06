@@ -212,7 +212,7 @@ class Processor(object):
         Parses various parameters from _request_xml into _request_params.
         """
         #Minimal test to verify that it's not binarily encoded still:
-        if not self._request_xml.strip().startswith('<'):
+        if not self._request_xml.strip().startswith(b'<'):
             raise Exception('RequestXML is not valid XML; '
                             'it may need to be decoded or decompressed.')
         soup = BeautifulSoup(self._request_xml, 'xml')
